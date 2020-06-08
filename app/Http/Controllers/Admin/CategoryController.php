@@ -145,7 +145,7 @@ class CategoryController extends Controller
                 Storage::disk('public')->delete('category/'.$category->image);
             }
 //            resize image for category and upload
-            $categoryimage = Image::make($image)->resize(1600,479)->save();
+            $categoryimage = Image::make($image)->resize(1600,479)->save(90);
             Storage::disk('public')->put('category/'.$imagename,$categoryimage);
 
             //            check category slider dir is exists
@@ -159,7 +159,7 @@ class CategoryController extends Controller
                 Storage::disk('public')->delete('category/slider/'.$category->image);
             }
             //            resize image for category slider and upload
-            $slider = Image::make($image)->resize(500,333)->save();
+            $slider = Image::make($image)->resize(500,333)->save(90);
             Storage::disk('public')->put('category/slider/'.$imagename,$slider);
 
         } else {
