@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
-/*use App\Notifications\AuthorPostApproved;
-use App\Notifications\NewPostNotify;*/
+use App\Notifications\AuthorPostApproved;
+use App\Notifications\NewPostNotify;
 use App\Subscriber;
 use App\Tag;
 use App\Post;
@@ -70,7 +70,7 @@ class PostController extends Controller
                 Storage::disk('public')->makeDirectory('post');
             }
 
-            $postImage = Image::make($image)->resize(1600,1066)->save();
+            $postImage = Image::make($image)->resize(1600,1066)->save(90);
             Storage::disk('public')->put('post/'.$imageName,$postImage);
 
         } else {
@@ -93,14 +93,15 @@ class PostController extends Controller
 
         $post->categories()->attach($request->categories);//categories 1st inside post model 2nd is name in the index
         $post->tags()->attach($request->tags);
-/*
+/*subscribers notification*/
         $subscribers = Subscriber::all();
+
         foreach ($subscribers as $subscriber)
         {
             Notification::route('mail',$subscriber->email)
                 ->notify(new NewPostNotify($post));
         }
-*/
+
         Toastr::success('Post Successfully Saved :)','Success');
         return redirect()->route('admin.post.index');
     }
@@ -162,7 +163,7 @@ class PostController extends Controller
             {
                 Storage::disk('public')->delete('post/'.$post->image);
             }
-            $postImage = Image::make($image)->resize(1600,1066)->save();
+            $postImage = Image::make($image)->resize(1600,1066)->save(90);
             Storage::disk('public')->put('post/'.$imageName,$postImage);
 
         } else {
@@ -206,12 +207,12 @@ class PostController extends Controller
             $post->user->notify(new AuthorPostApproved($post));
 
             $subscribers = Subscriber::all();
-            /*foreach ($subscribers as $subscriber)
+           foreach ($subscribers as $subscriber)
             {
                 Notification::route('mail',$subscriber->email)
                     ->notify(new NewPostNotify($post));
             }
-*/
+
             Toastr::success('Post Successfully Approved :)','Success');
         } else {
             Toastr::info('This Post is already approved','Info');
