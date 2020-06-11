@@ -18,6 +18,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('post/{slug}','PostController@details')->name('post.details');
+
 Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admin']], function (){
     Route::get('dashboard','DashboardController@index')->name('dashboard');
 

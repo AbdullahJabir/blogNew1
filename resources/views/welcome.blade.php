@@ -60,7 +60,7 @@
 
                             <div class="blog-info">
 
-                                <h4 class="title"><a href="#"><b>How Did Van Gogh's Turbulent Mind Depict One of the Most Complex
+                                <h4 class="title"><a href="{{ route('post.details',$post->slug) }}"><b>How Did Van Gogh's Turbulent Mind Depict One of the Most Complex
                                 Concepts in Physics?</b></a></h4>
 
                                 <ul class="post-footer">
