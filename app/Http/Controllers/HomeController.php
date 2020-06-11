@@ -13,7 +13,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-  
+
     /**
      * Show the application dashboard.
      *
@@ -22,6 +22,7 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('welcome',compact('categories'));
+        $posts = Post::latest()->take(6)->get();
+        return view('welcome',compact('categories','posts'));
     }
 }
