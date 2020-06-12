@@ -70,3 +70,7 @@ Route::group(['as'=>'author.','prefix'=>'author','namespace'=>'Author','middlewa
     Route::put('password-update','SettingsController@updatePassword')->name('password.update');
     });
 
+View::composer('layouts.frontend.partial.footer',function ($view) {
+    $categories = App\Category::all();
+    $view->with('categories',$categories);
+});
