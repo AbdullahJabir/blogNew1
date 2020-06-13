@@ -18,6 +18,8 @@ Route::post('subscriber','SubscriberController@store')->name('subscriber.store')
 Route::get('/category/{slug}','PostController@postByCategory')->name('category.posts');
 Route::get('/tag/{slug}','PostController@postByTag')->name('tag.posts');
 Route::get('/search','SearchController@search')->name('search');
+
+Route::get('profile/{username}','AuthorController@profile')->name('author.profile');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
@@ -73,7 +75,7 @@ Route::group(['as'=>'author.','prefix'=>'author','namespace'=>'Author','middlewa
     Route::put('password-update','SettingsController@updatePassword')->name('password.update');
     });
 
-View::composer('layouts.frontend.partial.footer',function ($view) {
+View::composer('layouts.frontend.footer',function ($view) {
     $categories = App\Category::all();
     $view->with('categories',$categories);
 });
